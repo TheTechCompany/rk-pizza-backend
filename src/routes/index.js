@@ -8,7 +8,7 @@ const Pizza = require('../models/pizza')
 
 module.exports = () => {
   router.use(bodyParser.json())
-  router.use(cors({origin: 'https://rainbowkereru.com'}))
+  router.use(cors({origin: ['http://localhost:3000', 'https://rainbowkereru.com']}))
 
   router.get('/', (req, res) => {
     res.send({msg: "Rainbow Kereru"})
