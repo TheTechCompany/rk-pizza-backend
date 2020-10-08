@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router();
+var cors = require('cors')
 var bodyParser = require('body-parser')
 var moniker = require('moniker');
 
@@ -7,6 +8,7 @@ const Pizza = require('../models/pizza')
 
 module.exports = () => {
   router.use(bodyParser.json())
+  router.use(cors({origin: 'https://rainbowkereru.com'}))
 
   router.get('/', (req, res) => {
     res.send({msg: "Rainbow Kereru"})
