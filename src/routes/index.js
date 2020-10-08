@@ -3,7 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser')
 var moniker = require('moniker');
 
-const Pizza = require('../../models/pizza')
+const Pizza = require('../models/pizza')
 
 module.exports = () => {
   router.use(bodyParser.json())
