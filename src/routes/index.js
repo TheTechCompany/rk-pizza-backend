@@ -4,7 +4,7 @@ var cors = require('cors')
 var bodyParser = require('body-parser')
 var moniker = require('moniker');
 
-const Pizza = require('../models/pizza')
+const { Pizza, Resource, CalendarItem }   = require('../models')
 
 module.exports = () => {
   router.use(bodyParser.json())
@@ -13,6 +13,59 @@ module.exports = () => {
   router.get('/', (req, res) => {
     res.send({msg: "Rainbow Kereru"})
   })
+
+  router.post('/kindy', (req, res) => {
+    res.send({result: (req.body.code == "RAINBOWPERSON")})
+  })
+
+  router.route('/kindy/resources')
+    .post((req, res) => {
+      let resource = new Resource({
+        name: req.body.name,
+        location: req.body.location,
+        type: req.body.type
+      })
+
+      resource.save((err, _res) => {
+        res.send((err) ? {error: err} : _res)
+      })
+    })
+    .get((req, res) => {
+      Resource.find().exec((err, resources) => {
+        res.send((err) ? {error: err} : resources)
+      })
+    })
+
+  router.route('/kindy/calendar')
+    .post((req, res) => {
+
+      let start = new Date(req.body.start);
+      let end = new Date(req.body.end);
+
+      let item = new CalendarItem({
+        start: start.getTime(),
+        end: end.getTime(),
+        data: req.body.data,
+        resources: req.body.resources
+      })
+
+      item.save((err, calendarItem) => {
+        res.send((err) ? {error: err} : calendarItem)
+      })
+    })
+    .get((req, res) => {
+      CalendarItem.find().exec((err, items) => {
+        res.send((err) ? {error: err} : items)
+      })
+    })
+
+  router.route('/kindy/gallery')
+    .post((req, res) => {
+
+    })
+    .get((req, res) => {
+
+    })
 
   router.get('/pizza/:name', (req, res) => {
     Pizza.findOne({name: req.params.name}, (err, pizza) => {
