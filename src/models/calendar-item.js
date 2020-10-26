@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 const calendarSchema = new mongoose.Schema({
   start: Number,
