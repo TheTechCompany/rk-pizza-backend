@@ -37,6 +37,21 @@ module.exports = () => {
     })
 
   router.route('/kindy/calendar')
+    .put((req, res) => {
+      CalendarItem.updateOne({_id: req.body.id}, {
+        start: new Date(req.body.start).getTime(),
+        end: new Date(req.body.end).getTime(),
+        data: req.body.data,
+        resources: req.body.resources
+      }, {omitUndefined: true}, (err) => {
+        res.send((err) ? {error: err}: {success: true})
+      })
+    })
+    .delete((req, res) => {
+      CalendarItem.deleteOne({_id: req.body.id}, (err) => {
+        res.send((err) ? {error: err} : {success: true})
+      })
+    })
     .post((req, res) => {
 
       let start = new Date(req.body.start);
