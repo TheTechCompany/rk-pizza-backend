@@ -3,7 +3,7 @@ var router = express.Router();
 var cors = require('cors')
 var bodyParser = require('body-parser')
 var moniker = require('moniker');
-var jwt = require('jwt');
+var jwt = require('jsonwebtoken');
 
 const { Pizza, Resource, CalendarItem }   = require('../models')
 
