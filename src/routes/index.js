@@ -3,8 +3,11 @@ var router = express.Router();
 var cors = require('cors')
 var bodyParser = require('body-parser')
 var moniker = require('moniker');
+var jwt = require('jwt');
 
 const { Pizza, Resource, CalendarItem }   = require('../models')
+
+const SECRET_CODE = "RAINBOWPERSON";
 
 module.exports = () => {
   router.use(bodyParser.json())
@@ -15,7 +18,15 @@ module.exports = () => {
   })
 
   router.post('/kindy', (req, res) => {
-    res.send({result: (req.body.code == "RAINBOWPERSON")})
+    if(req.body.code == SECRET_CODE){
+      let payload = {
+        name: req.body.name,
+        dt: new Date().getTime()
+      }
+      res.send({result: jwt.sign(payload, SECRET_CODE)})
+    }else{
+      res.send({error: "Access denied, please ask a friend"})
+    }
   })
 
   router.route('/kindy/resources')
