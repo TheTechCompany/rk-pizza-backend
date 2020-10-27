@@ -55,7 +55,8 @@ module.exports = () => {
       let resource = new Resource({
         name: req.body.name,
         location: req.body.location,
-        type: req.body.type
+        type: req.body.type,
+        bookable: false
       })
 
       resource.save((err, _res) => {
