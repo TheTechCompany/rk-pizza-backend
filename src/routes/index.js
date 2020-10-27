@@ -63,7 +63,7 @@ module.exports = () => {
       })
     })
     .get((req, res) => {
-      Resource.find().exec((err, resources) => {
+      Resource.find({bookable: false}).exec((err, resources) => {
         res.send((err) ? {error: err} : resources)
       })
     })
