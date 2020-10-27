@@ -29,6 +29,27 @@ module.exports = () => {
     }
   })
 
+
+
+  router.route('/kindy/tools')
+    .post((req, res) => {
+      let resource = new Resource({
+        name: req.body.name,
+        location: req.body.location,
+        type: req.body.type,
+        bookable: true
+      })
+
+      resource.save((err, _res) => {
+        res.send((err) ? {error: err} : _res)
+      })
+    })
+    .get((req, res) => {
+      Resource.find({bookable: true}).exec((err, resources) => {
+        res.send((err) ? {error: err} : resources)
+      })
+    })
+
   router.route('/kindy/resources')
     .post((req, res) => {
       let resource = new Resource({

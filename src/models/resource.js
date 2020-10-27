@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const resourceSchema = new mongoose.Schema({
   name: String,
   location: String,
-  type: String
+  type: String,
+  bookable: Boolean
 }, {
   timestamps: true
 })
