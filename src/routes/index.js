@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 var moniker = require('moniker');
 var jwt = require('jsonwebtoken');
 
-const { Pizza, Resource, CalendarItem }   = require('../models')
+const { Model, Pizza, Resource, CalendarItem }   = require('../models')
 
 const SECRET_CODE = "RAINBOWPERSON";
 
@@ -48,6 +48,32 @@ module.exports = () => {
       Resource.find({bookable: true}).exec((err, resources) => {
         res.send((err) ? {error: err} : resources)
       })
+    })
+
+  router.route('/kindy/models')
+    .post((req, res) => {
+      let model = new Model({
+        name: req.body.name,
+        fields: req.body.fields,
+        consumable: req.body.consumable || true
+      })
+
+      model.save((err, _model) => {
+        res.send((err) ? {error: err} : _model)
+      })
+    })
+    .get((req, res) => {
+      Model.find({}).exec((err, models) => {
+        res.send((err) ? {error: err} : models)
+      })
+    })
+    .put((req, res) => {
+      Model.updateOne({_id: req.body._id}, {
+        name: req.body.name,
+        fields.req.body.fields
+      }, {omitUndefined: true}, (err) => {
+        res.send((err) ? {error: err} : {success: true})
+      })    
     })
 
   router.route('/kindy/resources')
