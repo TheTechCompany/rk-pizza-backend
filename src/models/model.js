@@ -2,14 +2,8 @@ const mongoose = require('mongoose')
 
 const modelSchema = new mongoose.Schema({
   name: String,
-  fields: [{
-    key: String,
-    type: String
-  }],
-  actions: [{
-    key: String,
-    action: String
-  }],
+  fields: [Object],
+  actions: [Object],
   consumable: Boolean
 }, {
   timestamps: true
