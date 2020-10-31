@@ -70,7 +70,7 @@ module.exports = () => {
     .put((req, res) => {
       Model.updateOne({_id: req.body._id}, {
         name: req.body.name,
-        fields: JSON.parse(req.body.fields)
+        fields: req.body.fields 
       }, {omitUndefined: true}, (err) => {
         res.send((err) ? {error: err} : {success: true})
       })    
